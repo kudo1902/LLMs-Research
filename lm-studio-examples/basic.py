@@ -1,3 +1,4 @@
+import time
 from openai import OpenAI
 
 client = OpenAI(
@@ -6,8 +7,9 @@ client = OpenAI(
   api_key="something-doesnt-matter",
 )
 
+start = time.perf_counter()
 response = client.chat.completions.create(
-  model="gemma-3-12b-it-qat",
+  model="gemma-4-e4b",
   messages=[
     {
       "role": "system",
@@ -20,5 +22,7 @@ response = client.chat.completions.create(
   ],
   temperature=0.7,
 )
+end = time.perf_counter()
 
 print(response.choices[0].message.content)
+print(f"Execution time: {end - start:.3f} seconds")
